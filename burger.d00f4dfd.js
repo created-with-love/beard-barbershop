@@ -128,8 +128,62 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     body.classList.toggle('body-hidden');
     menuBtnRef.setAttribute('aria-expanded', !expanded);
     mobileMenuRef.classList.toggle('is-open');
+    handlerEscModalClose();
   });
-})();
+})(); // Реализация закрытия модалки при клике в бекдроп
+
+
+var menuBtnRef = document.querySelector('[data-menu-button]');
+var backdrop = document.querySelector('.backdrop');
+var body = document.querySelector('body');
+backdrop.addEventListener('click', onBackdropClick);
+
+function onBackdropClick(evt) {
+  if (evt.currentTarget === evt.target) {
+    onModalClose();
+  }
+} // Функция для закрытия модального окна при нажатии на Esc
+
+
+function handlerEscModalClose() {
+  window.addEventListener('keydown', onEsckeyClick);
+
+  function onEsckeyClick(evt) {
+    if (evt.code === 'Escape') {
+      onModalClose();
+    }
+  }
+} // Функция закрытия модального окна и снятия всех классов
+
+
+function onModalClose() {
+  backdrop.classList.remove('is-open');
+  menuBtnRef.classList.remove('is-open');
+  body.classList.remove('body-hidden');
+} // реализация закрытия модального окна при клике по элементам навигации
+
+
+var mainModalMenuListItems = document.querySelector('.nav-menu');
+mainModalMenuListItems.addEventListener('click', onMainMenuItemsClick);
+
+function onMainMenuItemsClick(evt) {
+  if (!evt.target.classList.value === 'nav-menu__item') {
+    return;
+  }
+
+  onModalClose();
+}
+
+var onlineBtn = document.querySelector('.contact-us__online');
+onlineBtn.addEventListener('click', onOnlineBtnClick);
+
+function onOnlineBtnClick(evt) {
+  if (!evt.target.classList.value === 'contact-us__online') {
+    return;
+  }
+
+  onModalClose();
+}
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -158,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52007" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56088" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
